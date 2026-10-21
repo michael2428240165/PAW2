@@ -16,12 +16,26 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{BASE_URL}}/fakultas",
+              "raw": "{{BASE_URL}}/fakultas?search=ilmu&sort=desc&sortBy=name",
               "host": [
                 "{{BASE_URL}}"
               ],
               "path": [
                 "fakultas"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "ilmu"
+                },
+                {
+                  "key": "sort",
+                  "value": "desc"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "name"
+                }
               ]
             }
           },
@@ -34,7 +48,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"name\": \"Sistem Informasi\"\r\n}",
+              "raw": "{\r\n  \"name\": \"Fakultas Ilmu Design\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -59,13 +73,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{BASE_URL}}/fakultas/6abd098612e922584000742f",
+              "raw": "{{BASE_URL}}/fakultas/",
               "host": [
                 "{{BASE_URL}}"
               ],
               "path": [
                 "fakultas",
-                "6abd098612e922584000742f"
+                ""
               ]
             }
           },
@@ -104,13 +118,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{BASE_URL}}/fakultas/6abd098612e922584000742f",
+              "raw": "{{BASE_URL}}/fakultas/6abd089212e922584000742d",
               "host": [
                 "{{BASE_URL}}"
               ],
               "path": [
                 "fakultas",
-                "6abd098612e922584000742f"
+                "6abd089212e922584000742d"
               ]
             }
           },
