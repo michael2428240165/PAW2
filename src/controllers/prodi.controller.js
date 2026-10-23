@@ -6,7 +6,42 @@ import ProdiModel from "../model/prodi.model.js"
 
 class ProdiController {
     static async index(req, res) {
-        const listProdi = await ProdiModel.find().populate("fakultas")
+        const { search, sort, sortBy = "createdAt", page = 1, limit = 10, } = req.query;
+
+        const currentPage = Math.max(1, parseInt(page, 10) || 1)
+        const perPage = Math.max(1, parseInt(limit, 10) || 10)
+        const skip = (currentPage - 1) * perPage
+
+        const allowSortFields = ["kode", "nama_prodi", "createdAt", "updatedAt"]
+        const sortField = allowSortFields.includes(sortBy) ? sortBy : "createdAt"
+
+        const filter = {}
+        const sortOption ={
+            [sortField]: sort === "desc" ? -1 : 1, 
+        };
+
+        if(search) {
+            filter.name = {//nama_prodi?
+                $regex : search,
+                $options : "i"
+            };
+        }
+
+        const [listProdi, totalDat] = await Promise.all([
+            ProdiModel.find(filter)
+                .select({
+                    _id: 1,
+                    kode: 1,
+                    nama_prodi: 1,
+                    fakultas: 1,
+                    createdAt: 1,
+                    updatedAt: 1,
+                })
+                .sort(sortOption)
+                .skip(skip)
+                .limit(perPage)
+                .populate("fakultas"),
+            ]);
 
         return apiResponse({
             res,
