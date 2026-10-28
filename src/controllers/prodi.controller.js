@@ -21,13 +21,15 @@ class ProdiController {
         };
 
         if(search) {
-            filter.name = {//nama_prodi?
+            filter.nama_prodi = {
                 $regex : search,
                 $options : "i"
             };
         }
 
-        const [listProdi, totalDat] = await Promise.all([
+        console.log(filter)
+
+        const [listProdi, totalData] = await Promise.all([
             ProdiModel.find(filter)
                 .select({
                     _id: 1,
@@ -41,14 +43,28 @@ class ProdiController {
                 .skip(skip)
                 .limit(perPage)
                 .populate("fakultas"),
-            ]);
+
+            ProdiModel.countDocuments(filter),
+        ]);
+
+        const totalPages = Math.ceil(totalData / perPage);
 
         return apiResponse({
             res,
             status: 200,
             message: "list prodi",
-            data : listProdi
-        })
+            data: {
+                items: listProdi,
+                pagination: {
+                    totalData,
+                    totalPages,
+                    currentPage,
+                    perPage,
+                    hasNextPage: currentPage < totalPages,
+                    hasPrevPage: currentPage > 1,
+                },
+            },
+        });
     }
 
     static async show(req, res) { }

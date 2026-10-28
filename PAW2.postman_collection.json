@@ -14,7 +14,12 @@
           "name": "List Fakultas",
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer TOKEN"
+              }
+            ],
             "url": {
               "raw": "{{BASE_URL}}/fakultas?sort=asc&sortBy=name&page=1&limit=3",
               "host": [
@@ -150,12 +155,35 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{BASE_URL}}/prodi",
+              "raw": "{{BASE_URL}}/prodi?sort=asc&sortBy=kode&limit=10&page=1",
               "host": [
                 "{{BASE_URL}}"
               ],
               "path": [
                 "prodi"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "ekonomi",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "asc"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "kode"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                }
               ]
             }
           },
